@@ -1,12 +1,19 @@
-name: learn-github-actions
-on: [push]
+name: go-server-aws-deploy-demo
+on:
+  push:
+    branches: [ main ]
+
 jobs:
-  check-bats-version:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout responsitory
+        uses: actions/checkout@v3
+
+      - name: Go Setup
+        uses: actions/setup-go@v2
         with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+          go-version: '^1.13.1'
+
+      - name: Check go version
+        run: go version
